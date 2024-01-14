@@ -11,6 +11,44 @@ extension Temtem {
     var number: String {
         id.toHashtag()
     }
+    
+}
+
+extension TechniqueSource: Comparable {
+    static func < (lhs: TechniqueSource, rhs: TechniqueSource) -> Bool {
+        switch (lhs, rhs) {
+        case (.levelling, _):
+            return true
+        case (_, .breeding):
+            return true
+        default:
+            return false
+        }
+    }
+}
+
+extension TemtemTechnique {
+    var sourceText: String {
+        if let levels = self.levels, self.source == .levelling {
+            "Level \(levels)"
+        } else {
+            source.rawValue
+        }
+    }
+    var sourceTextShort: String {
+        if let levels = self.levels, self.source == .levelling {
+            "Lvl \(levels)"
+        } else {
+            switch self.source {
+            case .levelling:
+                "Lvl"
+            case .techniqueCourses:
+                "TC"
+            case .breeding:
+                "Breed"
+            }
+        }
+    }
 }
 
 extension Array<Temtem> {

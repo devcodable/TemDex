@@ -10,6 +10,7 @@ import SwiftUI
 struct TechniqueCardView: View {
     
     let technique: Technique
+    let sourceText: String
     
     var body: some View {
         frameImage
@@ -43,8 +44,9 @@ struct TechniqueCardView: View {
                 }
             }
             .overlay(alignment: .trailing) {
-                DamageStaminaIcon(iconType: .stamina, value: technique.staminaCost)
-                    .frame(height: 24)
+                Text(sourceText)
+                    .font(for: .rubik)
+                    .foregroundStyle(.gray)
                     .padding(.trailing, 12)
             }
     }

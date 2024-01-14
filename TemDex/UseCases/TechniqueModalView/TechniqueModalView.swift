@@ -10,6 +10,7 @@ import SwiftUI
 struct TechniqueModalView: View {
     
     let technique: Technique
+    let sourceText: String
     
     var body: some View {
         ScrollView {
@@ -19,37 +20,10 @@ struct TechniqueModalView: View {
                     .foregroundStyle(.white)
                     .padding(.bottom, 8)
                 
-                HStack(alignment: .center, spacing: 12) {
-                    TypeCapsuleView(typeElement: technique.type)
-                    
-                    Image(for: .techniqueClass(technique.techniqueClass))
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 32)
-                    
-                    Spacer()
-                    
-                    DamageStaminaIcon(iconType: .damage, value: technique.damage)
-                        .frame(height: 32)
-                    DamageStaminaIcon(iconType: .stamina, value: technique.staminaCost)
-                        .frame(height: 32)
-                }
-                .padding(.bottom, 24)
+                typeAndStatsSection
+                    .padding(.bottom, 24)
                 
-                HStack(alignment: .center, spacing: 8) {
-                    Text("Hold:  ")
-                        .font(for: .rubikBold)
-                    +
-                    Text("\(technique.hold)")
-                        .font(for: .rubik)
-                    
-                    Spacer()
-                    
-                    Image(for: .priority(technique.priority))
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 32)
-                }
+                holdAndPrioritySection
                 
                 sourceSection
                 
@@ -73,24 +47,7 @@ struct TechniqueModalView: View {
                     .foregroundStyle(.white)
                     .fixedSize(horizontal: false, vertical: true)
                 
-                if technique.synergy != .none {
-                    divider
-                    HStack(spacing: 6) {
-                        Text("Synergy")
-                            .font(for: .rubikMedium, size: 18)
-                            .foregroundStyle(.white)
-                        Image(for: .type(technique.synergy))
-                            .resizable()
-                            .scaledToFit()
-                            .frame(height: 32)
-                        
-                        Spacer()
-                    }
-                    Text(technique.synergyText)
-                        .font(for: .rubik)
-                        .foregroundStyle(.white)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
+                synergySection
                 
                 Spacer()
                 
@@ -102,24 +59,74 @@ struct TechniqueModalView: View {
         .background(Color.background.ignoresSafeArea())
     }
     
-    @ViewBuilder
-    private var sourceSection: some View {
-        if let source = technique.source {
-            var sourceText: String = if let levels = technique.levels, source == .levelling {
-                "\(levels) levels"
-            } else {
-                source.rawValue
-            }
+    private var typeAndStatsSection: some View {
+        HStack(alignment: .center, spacing: 12) {
+            TypeCapsuleView(typeElement: technique.type)
             
-            HStack(alignment: .center, spacing: 8) {
-                Text("Source:  ")
-                    .font(for: .rubikBold)
-                +
-                Text(sourceText)
-                    .font(for: .rubik)
+            Image(for: .techniqueClass(technique.techniqueClass))
+                .resizable()
+                .scaledToFit()
+                .frame(height: 32)
+            
+            Spacer()
+            
+            DamageStaminaIcon(iconType: .damage, value: technique.damage)
+                .frame(height: 32)
+            DamageStaminaIcon(iconType: .stamina, value: technique.staminaCost)
+                .frame(height: 32)
+        }
+    }
+    
+    private var holdAndPrioritySection: some View {
+        HStack(alignment: .center, spacing: 8) {
+            Text("Hold:  ")
+                .font(for: .rubikBold)
+            +
+            Text("\(technique.hold)")
+                .font(for: .rubik)
+            
+            Spacer()
+            
+            Image(for: .priority(technique.priority))
+                .resizable()
+                .scaledToFit()
+                .frame(height: 32)
+        }
+    }
+    
+    private var sourceSection: some View {
+        HStack(alignment: .center, spacing: 8) {
+            Text("Source:  ")
+                .font(for: .rubikBold)
+                .foregroundStyle(.white)
+            +
+            Text(sourceText)
+                .font(for: .rubik)
+                .foregroundStyle(.white)
+            
+            Spacer()
+        }
+    }
+    
+    @ViewBuilder
+    private var synergySection: some View {
+        if technique.synergy != .none {
+            divider
+            HStack(spacing: 6) {
+                Text("Synergy")
+                    .font(for: .rubikMedium, size: 18)
+                    .foregroundStyle(.white)
+                Image(for: .type(technique.synergy))
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 32)
                 
                 Spacer()
             }
+            Text(technique.synergyText)
+                .font(for: .rubik)
+                .foregroundStyle(.white)
+                .fixedSize(horizontal: false, vertical: true)
         }
     }
     

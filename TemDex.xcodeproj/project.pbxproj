@@ -181,7 +181,10 @@
 				92C31B142B3AF4BC00A9D058 /* TemtemRenderView.swift */,
 				92C31B162B3AF7BD00A9D058 /* TemtemEvolutionsView.swift */,
 				92FFCF6E2B3B8154006D415C /* TypeTableView.swift */,
+				920D62AF2B43329C009A3B5D /* DamageStaminaIcon.swift */,
+				920D62AD2B433014009A3B5D /* TraitCardView.swift */,
 				92C3230E2B3C5895005B27B5 /* TraitsView.swift */,
+				920D62B12B4333B2009A3B5D /* TechniqueCardView.swift */,
 				92C323102B3C8084005B27B5 /* TechniquesView.swift */,
 			);
 			path = Components;
@@ -342,9 +345,6 @@
 				92DD2B552B3861450040F3F7 /* AsyncButton.swift */,
 				92C31B052B39A4A400A9D058 /* TypeCapsuleView.swift */,
 				92C31B092B39EE6C00A9D058 /* CustomProgressBarView.swift */,
-				920D62AD2B433014009A3B5D /* TraitCardView.swift */,
-				920D62AF2B43329C009A3B5D /* DamageStaminaIcon.swift */,
-				920D62B12B4333B2009A3B5D /* TechniqueCardView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";

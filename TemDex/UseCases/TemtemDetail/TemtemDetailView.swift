@@ -16,6 +16,7 @@ struct TemtemDetailView: View {
     @State private var shouldScrollToTop: Bool = false
     @State private var selectedTrait: Trait? = nil
     @State private var selectedTechnique: Technique? = nil
+    @State private var techniqueSource: String = ""
     
     @State private var temtem: Temtem
     let viewModel: TemtemListViewModel
@@ -76,7 +77,7 @@ struct TemtemDetailView: View {
                     .presentationDetents([.medium])
             })
             .sheet(item: $selectedTechnique, content: { technique in
-                TechniqueModalView(technique: technique)
+                TechniqueModalView(technique: technique, sourceText: techniqueSource)
                     .closeModalButton {
                         selectedTechnique = nil
                     }
@@ -185,9 +186,8 @@ struct TemtemDetailView: View {
                 temtem: temtem,
                 techniques: temtem.getTechniques(from: viewModel.techniques),
                 selectedTechnique: { temtemTechnique, technique in
+                    techniqueSource = temtemTechnique.sourceText
                     selectedTechnique = technique
-                    selectedTechnique?.source = temtemTechnique.source
-                    selectedTechnique?.levels = temtemTechnique.levels
                 }
             )
                 .padding(.top, 24)

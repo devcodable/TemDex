@@ -44,22 +44,10 @@ struct TraitModalView: View {
                 
                 HStack(alignment: .center, spacing: 12) {
                     if let traitMapping = temtem.getPreviousTraitMapping(trait: trait.name) {
-                        VStack(alignment: .leading, spacing: 12) {
-                            Text("Comes from:")
-                                .font(for: .rubikMedium, size: 18)
-                                .foregroundStyle(.white)
-                            TraitCardView(trait: traitMapping, temtem: temtem)
-                                .frame(height: 35)
-                        }
+                        traitSection(title: "Comes from:", traitName: traitMapping)
                     }
                     if let traitMapping = temtem.getNextTraitMapping(trait: trait.name) {
-                        VStack(alignment: .leading, spacing: 12) {
-                            Text("Evolves to:")
-                                .font(for: .rubikMedium, size: 18)
-                                .foregroundStyle(.white)
-                            TraitCardView(trait: traitMapping, temtem: temtem)
-                                .frame(height: 35)
-                        }
+                        traitSection(title: "Evolves to:", traitName: traitMapping)
                     }
                 }
             }
@@ -68,6 +56,16 @@ struct TraitModalView: View {
         .padding(.vertical, 24)
         .padding(.horizontal, 24)
         .background(Color.background.ignoresSafeArea())
+    }
+    
+    private func traitSection(title: String, traitName: String) -> some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text(title)
+                .font(for: .rubikMedium, size: 18)
+                .foregroundStyle(.white)
+            TraitCardView(trait: traitName, temtem: temtem)
+                .frame(height: 35)
+        }
     }
     
     private var divider: some View {

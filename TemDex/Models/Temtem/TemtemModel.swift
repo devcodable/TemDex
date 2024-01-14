@@ -131,19 +131,7 @@ struct TemtemTechnique: Hashable {
     let levels: Int?
 }
 
-enum TechniqueSource: String, Comparable {
-    static func < (lhs: TechniqueSource, rhs: TechniqueSource) -> Bool {
-        
-        switch (lhs, rhs) {
-        case (.levelling, _):
-            return true
-        case (_, .breeding):
-            return true
-        default:
-            return false
-        }
-    }
-    
+enum TechniqueSource: String {
     case breeding = "Breeding"
     case levelling = "Levelling"
     case techniqueCourses = "Technique courses"

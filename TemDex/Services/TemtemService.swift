@@ -13,7 +13,7 @@ struct TemtemService {
         
         let request = URLRequest(url: url!)
         
-        let (data, response) = try await URLSession.shared.data(for: request)
+        let (data, _) = try await URLSession.shared.data(for: request)
         
         let fetchedData = try JSONDecoder().decode([TemtemServerModel].self, from: data)
         

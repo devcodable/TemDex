@@ -22,8 +22,6 @@ struct Technique: Identifiable {
     let description: String
     let effectText: String
     let synergyText: String
-    var source: TechniqueSource? = nil
-    var levels: Int? = nil
 }
 
 enum TechniqueClass: String {

@@ -25,7 +25,7 @@ struct TemtemListView: View {
     var body: some View {
         VStack(spacing: 0) {
             header
-                .padding(.vertical, 16)
+                .padding(16)
             
             switch viewState {
             case .loading:
@@ -36,7 +36,6 @@ struct TemtemListView: View {
                 errorView
             }
         }
-        .padding(.horizontal, 16)
         .background(Color.background.ignoresSafeArea())
         .task {
             await loadTemtems()
@@ -105,7 +104,7 @@ struct TemtemListView: View {
                     }
                 }
             }
-            .padding(.top, 16)
+            .padding([.top, .horizontal], 16)
         }
         .scrollDismissesKeyboard(.interactively)
         .background {

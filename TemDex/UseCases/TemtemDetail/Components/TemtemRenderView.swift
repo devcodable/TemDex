@@ -27,6 +27,7 @@ struct TemtemRenderView: View {
                     gifButton
                     Spacer()
                     lumaButton
+                        .offset(y: 2)
                 }
                 .padding(.bottom, 12)
                 .padding(.horizontal, 16)

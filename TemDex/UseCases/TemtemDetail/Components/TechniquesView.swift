@@ -23,7 +23,7 @@ struct TechniquesView: View {
                     Button {
                         selectedTechnique(plain, enhanced)
                     } label: {
-                        TechniqueCardView(technique: enhanced)
+                        TechniqueCardView(technique: enhanced, sourceText: plain.sourceTextShort)
                     }
                 }
             }
