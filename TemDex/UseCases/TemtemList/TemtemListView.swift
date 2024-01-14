@@ -10,14 +10,13 @@ import SwiftUI
 struct TemtemListView: View {
     
     let viewModel = TemtemListViewModel()
-    @State private var searchTerm: String = ""
     @State private var temtems: [Temtem] = []
     @State private var temtemDetail: Temtem? = nil
     @State private var viewState: ViewState = .loading
-    @State private var searchBarHeight: CGFloat = .zero
     @State private var showFiltersModal: Bool = false
     
     // Filters
+    @State private var searchTerm: String = ""
     @State private var selectedType1: TypeElement = .none
     @State private var selectedType2: TypeElement = .none
     @State private var selectedMinStat: Double = .zero
@@ -44,17 +43,17 @@ struct TemtemListView: View {
         }
         .onChange(of: searchTerm) {
             withAnimation(.linear) {
-                temtems = viewModel.temtems.filterByName(searchTerm: searchTerm).filterByType([selectedType1, selectedType2]).filterByStat(selectedMinStat)
+                temtems = filteredTems()
             }
         }
         .onChange(of: [selectedType1, selectedType2], {
             withAnimation(.linear) {
-                temtems = viewModel.temtems.filterByName(searchTerm: searchTerm).filterByType([selectedType1, selectedType2]).filterByStat(selectedMinStat)
+                temtems = filteredTems()
             }
         })
         .onChange(of: selectedMinStat, {
             withAnimation(.linear) {
-                temtems = viewModel.temtems.filterByName(searchTerm: searchTerm).filterByType([selectedType1, selectedType2]).filterByStat(selectedMinStat)
+                temtems = filteredTems()
             }
         })
         .sheet(item: $temtemDetail) { temtem in
@@ -177,8 +176,6 @@ struct TemtemListView: View {
                 temtems = viewModel.temtems
                 selectedMinStat = viewModel.temtems.minTotalStat
             }
-            searchTerm = ""
-            hideKeyboard()
             withAnimation(.easeOut) {
                 viewState = .success
             }
@@ -206,6 +203,10 @@ struct TemtemListView: View {
         } catch {
             print(error)
         }
+    }
+    
+    private func filteredTems() -> [Temtem] {
+        return viewModel.temtems.filteredBy(name: searchTerm, types: [selectedType1, selectedType2], stat: selectedMinStat)
     }
 }
 

@@ -166,7 +166,11 @@ extension Temtem {
 
 // MARK: - Filters
 extension Array<Temtem> {
-    func filterByName(searchTerm: String) -> [Temtem] {
+    func filteredBy(name: String, types: [TypeElement], stat: Double) -> [Temtem] {
+        return self.filterByName(searchTerm: name).filterByType(types).filterByStat(stat)
+    }
+    
+    private func filterByName(searchTerm: String) -> [Temtem] {
         guard !searchTerm.isEmpty else {
             return self
         }
@@ -178,7 +182,7 @@ extension Array<Temtem> {
         }
     }
     
-    func filterByType(_ types: [TypeElement]) -> [Temtem] {
+    private func filterByType(_ types: [TypeElement]) -> [Temtem] {
         let unwrappedTypes = types.filter { $0 != .none }
         guard !unwrappedTypes.isEmpty else {
             return self
@@ -195,7 +199,7 @@ extension Array<Temtem> {
         }
     }
     
-    func filterByStat(_ stat: Double) -> [Temtem] {
+    private func filterByStat(_ stat: Double) -> [Temtem] {
         self.filter { temtem in
             temtem.stats.first { stat in
                 stat.key == "total"
